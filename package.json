@@ -1,12 +1,12 @@
 {
   "name": "landing-implant",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This project contains proprietary code of landing",
   "main": "index.js",
   "scripts": {
     "start": "gulp",
     "build": "gulp build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
@@ -27,9 +27,12 @@
     "browser-sync": "^2.12.5",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-bower": "0.0.13",
     "gulp-clean-css": "^2.0.7",
+    "gulp-coveralls": "^0.1.4",
     "gulp-imagemin": "^3.0.0",
     "gulp-include": "^2.1.0",
+    "gulp-inject": "^4.1.0",
     "gulp-jshint": "^2.0.1",
     "gulp-jslint": "^1.0.1",
     "gulp-sass": "^2.3.1",
@@ -39,6 +42,7 @@
     "gulp-watch": "^4.3.5",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
+    "main-bower-files": "^2.13.1",
     "rimraf": "^2.5.2"
   },
   "dependencies": {

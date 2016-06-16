@@ -13,8 +13,12 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
     reload = browserSync.reload,
+    bower = require('gulp-bower'),
+    mainBowerFiles = require('main-bower-files'),
     codeStylish = require('jshint-stylish'),
-    jshint = require("gulp-jshint"); //отслеживание ошибкок в js
+    inject = require('gulp-inject'),
+    jshint = require("gulp-jshint"),
+    coveralls = require('gulp-coveralls');
 
 var path = {
     build: { //Тут мы укажем куда складывать готовые после сборки файлы
@@ -28,6 +32,7 @@ var path = {
         html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
         js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
         jshint: 'src/js/**/*.js',
+        lib: 'src/lib/',
         style: 'src/style/main.scss',
         img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
         fonts: 'src/fonts/**/*.*'
@@ -56,6 +61,8 @@ gulp.task('html:build', function () {
         .pipe(include())
         .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
+    gulp.src('src/index.php')
+        .pipe(gulp.dest(path.build.html))
 });
 
 gulp.task('js:build', function () {
@@ -104,12 +111,32 @@ gulp.task('fonts:build', function() {
 });
 
 gulp.task('deps:build', function() {
-    gulp.src(['bower_components/jquery/dist/jquery.min.js','bower_components/uikit/js/uikit.min.js','bower_components/uikit/js/components/lightbox.min.js']) //js
+    gulp.src(['bower_components/jquery/dist/jquery.min.js','bower_components/uikit/js/uikit.min.js']) //js
         .pipe(gulp.dest(path.build.js))
     gulp.src(['bower_components/uikit/css/uikit.min.css']) //uikit css
         .pipe(gulp.dest(path.build.css))
     gulp.src(['bower_components/uikit/fonts/*.*']) //uikit fonts
         .pipe(gulp.dest('src/fonts'))
+});
+
+gulp.task('bower:install', function() {
+    return bower();
+});
+
+gulp.task("main-bower-files:build", function(){
+    return gulp.src(mainBowerFiles())
+        .pipe(gulp.dest(path.src.lib))
+});
+
+gulp.task("inject:build", function(){
+    gulp.src('./src/index.html')
+        .pipe(inject(gulp.src(mainBowerFiles(), {read: false}), {name: 'bower'}))
+        .pipe(gulp.dest('./build'));
+});
+
+gulp.task("coveralls:build", function(){
+    gulp.src('test/coverage/**/lcov.info')
+        .pipe(coveralls());
 });
 
 gulp.task('build', [
