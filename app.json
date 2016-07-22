@@ -1,0 +1,25 @@
+{
+  "name": "landing-implant",
+  "success_url": "/build",
+  "scripts": {
+//    "postdeploy": "npm i && bower i && gulp build"
+  },
+  "env": {
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-php"
+    }
+  ]
+}
