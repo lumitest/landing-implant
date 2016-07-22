@@ -9,8 +9,7 @@
   "scripts": {
     "start": "gulp",
     "build": "gulp build",
-    "test": "mocha test",
-    "postinstall": "./node_modules/bower/bin/bower install && gulp build"
+    "test": "mocha test"
   },
   "repository": {
     "type": "git",
