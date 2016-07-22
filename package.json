@@ -10,7 +10,7 @@
     "start": "gulp",
     "build": "gulp build",
     "test": "mocha test",
-    "postinstall": "gulp build"
+    "postinstall": "./node_modules/bower/bin/bower install && gulp build"
   },
   "repository": {
     "type": "git",
