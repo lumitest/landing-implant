@@ -3,7 +3,8 @@
       "compile": [
         "bower install",
         "gulp build"
-      ]
+      ],
+    "post-update-cmd": "bower install && gulp build"
   },
   "require": {
     "php": ">=5.3.0"
