@@ -22,3 +22,4 @@ deploy:
   api_key:
     secure: "26f01ce9-f060-47ec-b7f3-cb1a58438559"
   skip_cleanup: true
+  buildpack: nodejs
